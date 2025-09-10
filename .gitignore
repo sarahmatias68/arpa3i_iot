@@ -1,7 +1,3 @@
-/yarn.lock
-<<<<<<< HEAD
+gitignore
 node_modules
-=======
-node_modules/
-.expo/
->>>>>>> 89f1201c273a8ad21ec6152d0aecbb28027f1610
+yarn.lock
