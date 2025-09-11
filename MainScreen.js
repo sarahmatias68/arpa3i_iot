@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, Modal, TouchableOpacity } from 'react-native';
-import useWebSocket from './useWebSocketSensor';
+import { useAlerts } from './AlertsContext'; // Importa o hook do contexto
 import ConnectionStatusBanner from './ConnectionStatusBanner';
 
 const WEBSOCKET_URL = 'ws://10.237.202.52:86/ws';
@@ -68,13 +68,13 @@ export default function MainScreen({ navigation, user }) {
           transparent={true}
           animationType="fade"
           visible={Boolean(activeAlert)}
-          onRequestClose={() => setActiveAlert(null)}
+          onRequestClose={dismissActiveAlert} // Usa a função do contexto
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalTitle}>{activeAlert.title}</Text>
               <Text style={styles.modalText}>{activeAlert.message}</Text>
-              <TouchableOpacity style={styles.modalButton} onPress={() => setActiveAlert(null)}>
+              <TouchableOpacity style={styles.modalButton} onPress={dismissActiveAlert}> // Usa a função do contexto
                 <Text style={styles.modalButtonText}>OK, ESTOU CIENTE</Text>
               </TouchableOpacity>
             </View>

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import { AlertsProvider } from './AlertsContext';
 
 // Telas
 import LoginScreen from './LoginScreen';
@@ -44,9 +45,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
-          // Grupo de Telas Principais (App)
+      <AlertsProvider user={user}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {user ? (
+            // Grupo de Telas Principais (App)
           <>
             <Stack.Screen
               name="Main"
@@ -92,6 +94,7 @@ export default function App() {
           </>
         )}
       </Stack.Navigator>
+      </AlertsProvider>
     </NavigationContainer>
   );
 }
