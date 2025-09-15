@@ -9,6 +9,11 @@ export default function useWebSocket(url) {
   const [sensorState, setSensorState] = useState('Indisponível');
   const [buttonState, setButtonState] = useState('Indisponível');
   const [fallState, setFallState] = useState('Indisponível');
+  const [metricsState, setMetricsState] = useState({
+    ram: { free: 0, total: 0 },
+    sd: { used: 0, total: 0 },
+    latency: { avg: 0, min: 0, max: 0 },
+  });
   const ws = useRef(null);
   const heartbeatTimeoutRef = useRef(null);
   const reconnectAttempts = useRef(0);
@@ -50,6 +55,8 @@ export default function useWebSocket(url) {
           setButtonState(data.status);
         } else if (data.type === 'queda' && data.status) {
           setFallState(data.status);
+        } else if (data.type === 'metrics') {
+          setMetricsState(data);
         }
       } catch (error) {
         console.error('Erro ao processar mensagem:', error);
@@ -63,6 +70,11 @@ export default function useWebSocket(url) {
       setSensorState('Indisponível');
       setButtonState('Indisponível');
       setFallState('Indisponível');
+      setMetricsState({
+        ram: { free: 0, total: 0 },
+        sd: { used: 0, total: 0 },
+        latency: { avg: 0, min: 0, max: 0 },
+      });
 
       if (reconnectAttempts.current < MAX_RECONNECT_ATTEMPTS) {
         const delay = RECONNECT_DELAY_BASE * Math.pow(2, reconnectAttempts.current);
@@ -87,5 +99,5 @@ export default function useWebSocket(url) {
     };
   }, [connect]);
 
-  return { connectionStatus, sensorState, buttonState, fallState };
+  return { connectionStatus, sensorState, buttonState, fallState, metricsState };
 }

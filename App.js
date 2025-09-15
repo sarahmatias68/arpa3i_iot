@@ -18,6 +18,7 @@ import ElderlyDataScreen from './ElderlyDataScreen';
 import UserListScreen from './UserListScreen';
 import PermissionsScreen from './PermissionsScreen';
 import AboutScreen from './AboutScreen';
+import MetricsScreen from './MetricsScreen';
 
 const Stack = createStackNavigator();
 
@@ -82,6 +83,7 @@ export default function App() {
             <Stack.Screen name="UserList" component={UserListScreen} options={{ headerShown: true, title: 'Gerenciar Usuários' }} />
             <Stack.Screen name="Permissions" component={PermissionsScreen} options={{ headerShown: true, title: 'Permissões' }} />
             <Stack.Screen name="About" component={AboutScreen} options={{ headerShown: true, title: 'Sobre o Aplicativo' }} />
+            <Stack.Screen name="Metrics" component={MetricsScreen} options={{ headerShown: true, title: 'Métricas de Desempenho' }} />
           </>
         ) : (
           // Grupo de Telas de Autenticação

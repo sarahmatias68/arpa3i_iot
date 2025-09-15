@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, Modal, TouchableOpacity } from 'react-native';
 import { useAlerts } from './AlertsContext'; // Importa o hook do contexto
 import ConnectionStatusBanner from './ConnectionStatusBanner';
+import useWebSocket from './useWebSocketSensor';
 
 const WEBSOCKET_URL = 'ws://10.237.202.52:86/ws';
 
